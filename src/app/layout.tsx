@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/app/theme-provider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthButton } from "@/components/AuthButton";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: 'Social Photo Manager',
+  title: 'ImageShare',
   description: 'Upload and share your photos',
 };
 
@@ -40,9 +41,12 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen">
             <header className="container mx-auto p-4">
               <div className="flex justify-between items-center">
-                <Link href="/dashboard" className="text-2xl font-bold hover:underline cursor-pointer">
-                  Social Photo Manager
-                </Link>
+                <Button variant="link" className="text-4xl font-bold hover:underline cursor-pointer">
+                  <Link href="/dashboard">
+                    ImageShare
+                  </Link>
+                </Button>
+
                 <div className="flex items-center space-x-4">
                   <AuthButton />
                   <ThemeToggle />

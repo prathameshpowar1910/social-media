@@ -67,7 +67,11 @@ export default function ImageView() {
   const handleDownload = async () => {
     if (image) {
       try {
-        const response = await fetch(image.url, { mode: 'no-cors' });
+        const encodedUrl = encodeURIComponent(image.url);
+        const response = await fetch(`/api/download?url=${encodedUrl}`);
+        
+        if (!response.ok) throw new Error('Download failed');
+        
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -77,10 +81,11 @@ export default function ImageView() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
+        
         toast({
-          title: "Download started",
-          description: "The image is being downloaded.",
-        })
+          title: "Download Completed",
+          description: "The image has been downloded.",
+        });
       } catch (error) {
         console.error('Download failed:', error);
         toast({

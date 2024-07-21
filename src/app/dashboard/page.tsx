@@ -108,11 +108,6 @@ export default function Dashboard() {
     }
   };
 
-  const handleLogout = () => {
-    auth.signOut();
-    router.push('/login');
-  };
-
   const copyLink = (id: string) => {
     const link = `${window.location.origin}/image/${id}`;
     navigator.clipboard.writeText(link).then(() => {
@@ -151,7 +146,6 @@ export default function Dashboard() {
                   Upload
                 </Button>
               </div>
-              <Button onClick={handleLogout} variant="outline">Logout</Button>
             </div>
             <div className="text-sm text-gray-600">
               {images.length} / {IMAGE_LIMIT} images uploaded ({IMAGE_LIMIT - images.length} remaining)
