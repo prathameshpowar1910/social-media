@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { auth } from './lib/firebase';
 
 // Simple in-memory store for rate limiting
 const rateLimit = new Map<string, { count: number; resetTime: number }>()
@@ -15,10 +16,7 @@ function getRateLimitResponse() {
 }
 
 export function middleware(request: NextRequest) {
-  const session = request.cookies.get('session')
-
-  // Check for session on dashboard routes
-  if (request.nextUrl.pathname.startsWith('/dashboard') && !session) {
+  if (request.nextUrl.pathname.startsWith('/dashboard') && !auth.currentUser) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
